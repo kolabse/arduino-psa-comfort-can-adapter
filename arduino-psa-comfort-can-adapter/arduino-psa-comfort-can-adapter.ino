@@ -21,7 +21,6 @@ all copies or substantial portions of the Software.
 //    Libraries    //
 /////////////////////
 
-#include <mcp2515.h> // https://github.com/autowp/arduino-mcp2515 + https://github.com/watterott/Arduino-Libs/tree/master/digitalWriteFast
 #include <PsaComfortCanAdapter.h>
 
 /////////////////////
