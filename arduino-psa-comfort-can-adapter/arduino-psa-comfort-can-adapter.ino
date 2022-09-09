@@ -23,26 +23,26 @@ all copies or substantial portions of the Software.
 
 #include <PsaComfortCanAdapter.h>
 
-/////////////////////
-//  Configuration  //
-/////////////////////
-
 const uint8_t csPinCan0 {10};
 const uint8_t csPinCan1 {9};
-
 
 ////////////////////
 // Initialization //
 ////////////////////
 
-//MCP2515 CAN0(csPinCan0); // CAN-BUS Shield N°1
-//MCP2515 CAN1(csPinCan1); // CAN-BUS Shield N°2
-
-//PsaComfortCanAdapter canAdapter = PsaComfortCanAdapter(CAN0, CAN1);
-
 PsaComfortCanAdapter canAdapter = PsaComfortCanAdapter(csPinCan0, csPinCan1);
 
 void setup() {
+
+  /////////////////////
+  //  Configuration  //
+  /////////////////////
+
+  canAdapter.setEmulateVIN(true);
+  canAdapter.setVinNumber("VF7XXXXXXXXXXXXXX");
+  canAdapter.setHasAnalogicButtons(true);
+  canAdapter.setLanguageID(RU);
+
   canAdapter.adapterInit();
 }
 
