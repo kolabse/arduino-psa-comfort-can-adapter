@@ -1,3 +1,22 @@
+/*
+Copyright 2019-2022, Ludwig V. <https://github.com/ludwig-v>
+Copyright 2021, Nick V. (V3nn3tj3) <https://github.com/v3nn3tj3>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License at <http://www.gnu.org/licenses/> for
+more details.
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+*/
+
 #ifndef PSA_COMFORT_CAN_ADAPTER_H
 #define PSA_COMFORT_CAN_ADAPTER_H
 
@@ -9,6 +28,10 @@
 #include <DS1307RTC.h> // https://github.com/PaulStoffregen/DS1307RTC
 #include <mcp2515.h> // https://github.com/autowp/arduino-mcp2515 + https://github.com/watterott/Arduino-Libs/tree/master/digitalWriteFast
 
+/**
+ * @brief variants of system language
+ *
+ */
 enum LANG_IDS {
         FR = 0,
         EN = 1,
@@ -22,56 +45,185 @@ enum LANG_IDS {
         RU = 14
     };
 
+/**
+ * @brief Creates adapter for transfer can2004 messages from your car to can2010 devices and back
+ *
+ * @param csPinCan0 cs pin for can2004 shield
+ * @param csPinCan1 cs pin for can2010 shield
+ *
+ */
 class PsaComfortCanAdapter {
 
     public:
 
         PsaComfortCanAdapter(uint8_t csPinCan0, uint8_t csPinCan1);
 
+        // Perform adapter inicialisation: reset EEPROM, loads personalisation data from EEEPROM, setup time
         void adapterInit();
+        // Main adapter action
         void transfer();
 
         //Configuration methods
 
-        // Get some debug informations on Serial
+        /**
+         * @brief Get some debug informations on Serial
+         *
+         * @param state true/false
+         */
         void setDebugGeneral(bool state);
-        // Read data sent by ECUs from the car to Entertainment CAN bus using https://github.com/alexandreblin/python-can-monitor
+
+        /**
+         * @brief Read data sent by ECUs from the car to Entertainment CAN bus using https://github.com/alexandreblin/python-can-monitor
+         *
+         * @param state true/false
+         */
         void setDebugCAN0(bool state);
-        // Read data sent by the NAC / SMEG to Entertainment CAN bus using https://github.com/alexandreblin/python-can-monitor
+
+        /**
+         * @brief Read data sent by the NAC / SMEG to Entertainment CAN bus using https://github.com/alexandreblin/python-can-monitor
+         *
+         * @param state true/false
+         */
         void setDebugCAN1(bool state);
-        // You can disable economy mode on the Telematic if you want to - Not recommended at all
+
+        /**
+         * @brief You can disable economy mode on the Telematic if you want to - Not recommended at all
+         *
+         * @param state true/false
+         */
         void setEconomyModeEnabled(bool state);
-        // Send forged CAN2010 messages to the CAR CAN-BUS Network (useful for testing CAN2010 device(s) from already existent connectors)
+
+        /**
+         * @brief Send forged CAN2010 messages to the CAR CAN-BUS Network (useful for testing CAN2010 device(s) from already existent connectors)
+         *
+         * @param state true/false
+         */
         void setSend_CAN2010_ForgedMessages(bool state);
-        // Default Temperature in Celcius
+
+        /**
+         * @brief Sets system temperature to Farengate scale, by default Temperature in Celcius
+         *
+         * @param state true/false
+         */
         void setTemperatureInF(bool state);
+
+        /**
+         * @brief Turns odo to miles measurement
+         *
+         * @param state true/false
+         */
         void setMpgMi(bool state);
-        // km/L statistics instead of L/100
+
+        /**
+         * @brief Sets km/L statistics instead of L/100
+         *
+         * @param state true/false
+         */
         void setKmL(bool state);
-        // Force Brightness value in case the calibration does not match your brightness value range
+
+        /**
+         * @brief Force Brightness value in case the calibration does not match your brightness value range
+         *
+         * @param state true/false
+         */
         void setFixedBrightness(bool state);
-        // If you don't have any useful button on the main panel, turn the SRC button on steering wheel commands into MENU - only works for CAN2010 SMEG / NAC -
+
+        /**
+         * @brief If you don't have any useful button on the main panel, turn the SRC button on steering wheel commands into MENU - only works for CAN2010 SMEG / NAC -
+         *
+         * @param state true/false
+         */
         void setNoFMUX(bool state);
-        // noFMUX extra setting : 0 = Generic, 1 = C4 I / C5 X7 NAV+MUSIC+APPS+PHONE mapping, 2 = C4 I / C5 X7 MENU mapping, 3 = C4 I / C5 X7 MENU mapping + SRC on wiper command button, 4 = C4 I / C5 X7 MENU mapping + TRIP on wiper command button, 5 = C4 I / C5 X7 MENU mapping + SRC on wiper command button + TRIP on ESC button
+
+        /**
+         * @brief noFMUX extra setting
+         *
+         * @param type  0 = Generic, 1 = C4 I / C5 X7 NAV+MUSIC+APPS+PHONE mapping, 2 = C4 I / C5 X7 MENU mapping, 3 = C4 I / C5 X7 MENU mapping + SRC on wiper command button, 4 = C4 I / C5 X7 MENU mapping + TRIP on wiper command button, 5 = C4 I / C5 X7 MENU mapping + SRC on wiper command button + TRIP on ESC button
+         */
         void setSteeringWheelCommands_Type(byte type);
-        // Default is FR: 0 - EN: 1 / DE: 2 / ES: 3 / IT: 4 / PT: 5 / NL: 6 / BR: 9 / TR: 12 / RU: 14
+
+        /**
+         * @brief Set system language
+         *
+         * @param languageID Default is FR - (Variants:FR, EN, DE, ES, IT, PT, NL, BR, TR, RU)
+         */
         void setLanguageID(byte languageID);
-        // Switch language on CAN2010 devices if changed on supported CAN2004 devices, default: no
+
+        /**
+         * @brief Switch language on CAN2010 devices if changed on supported CAN2004 devices, default: false
+         *
+         * @param state true/false
+         */
         void setListenCAN2004Language(bool state);
-        // Switch to true to reset all EEPROM values
+
+        /**
+         * @brief Reset all EEPROM values
+         *
+         * @param state true/false
+         */
         void setResetEEPROM(bool state);
-        // Send suggested speed from Telematic to fake CVM (Multifunction camera inside the windshield) frame
+
+        /**
+         * @brief Send suggested speed from Telematic to fake CVM (Multifunction camera inside the windshield) frame
+         *
+         * @param state true/false
+         */
         void setCVM_Emul(bool state);
-        // Generate notifications from alerts journal - useful for C5 (X7)
+
+        /**
+         * @brief Generate notifications from alerts journal - useful for C5 (X7)
+         *
+         * @param state true/false
+         */
         void setGeneratePOPups(bool state);
-        // Replace network VIN by another (donor car for example)
+
+        /**
+         * @brief Replace network VIN by another (donor car for example)
+         *
+         * @param state true/false
+         */
         void setEmulateVIN(bool state);
+
+        /**
+         * @brief Define vin number to replace presented in network
+         *
+         * @param vin true/false
+         */
         void setVinNumber(char vin[18]);
-        // Analog buttons instead of FMUX
+
+        /**
+         * @brief Adapter has analog buttons instead of FMUX
+         *
+         * @param state true/false
+         */
         void setHasAnalogicButtons(bool state);
+
+        /**
+         * @brief Set number of port where connected MENU button
+         *
+         * @param menuButton default = 4
+         */
         void setMenuButton(byte menuButton);
+
+        /**
+         * @brief Set number of port where connected V+ button
+         *
+         * @param volDownButton default = 5
+         */
         void setVolDownButton(byte volDownButton);
+
+        /**
+         * @brief Set number of port where connected V- button
+         *
+         * @param volUpButton default = 6
+         */
         void setVolUpButton(byte volUpButton);
+
+        /**
+         * @brief Sets speed of volume change
+         *
+         * @param scrollValue 0 is default value
+         */
         void setScrollValue(byte scrollValue);
 
     private:
