@@ -1876,3 +1876,26 @@ int PsaComfortCanAdapter::daysSinceYearStartFct() {
   return doy;
 }
 
+void PsaComfortCanAdapter::setDebugGeneral(bool state) { _debugGeneral = state; }
+void PsaComfortCanAdapter::setDebugCAN0(bool state) { _debugCAN0 = state; }
+void PsaComfortCanAdapter::setDebugCAN1(bool state) { _debugCAN1 = state; }
+void PsaComfortCanAdapter::setEconomyModeEnabled(bool state) { _economyModeEnabled = state; }
+void PsaComfortCanAdapter::setSend_CAN2010_ForgedMessages(bool state) { _send_CAN2010_ForgedMessages = state; }
+void PsaComfortCanAdapter::setTemperatureInF(bool state) { _temperatureInF = state; }
+void PsaComfortCanAdapter::setMpgMi(bool state) { _mpgMi = state; }
+void PsaComfortCanAdapter::setKmL(bool state) { _kmL = state; }
+void PsaComfortCanAdapter::setFixedBrightness(bool state) { _fixedBrightness = state; }
+void PsaComfortCanAdapter::setNoFMUX(bool state) { _noFMUX = state; }
+void PsaComfortCanAdapter::setSteeringWheelCommands_Type(byte type) { _steeringWheelCommands_Type = type; }
+void PsaComfortCanAdapter::setLanguageID(byte languageID) { _languageID = languageID; }
+void PsaComfortCanAdapter::setListenCAN2004Language(bool state) { _listenCAN2004Language = state; }
+void PsaComfortCanAdapter::setResetEEPROM(bool state) { _resetEEPROM = state; }
+void PsaComfortCanAdapter::setCVM_Emul(bool state) { _CVM_Emul = state; }
+void PsaComfortCanAdapter::setGeneratePOPups(bool state) { _generatePOPups = state; }
+void PsaComfortCanAdapter::setEmulateVIN(bool state) { _emulateVIN = state; }
+void PsaComfortCanAdapter::setVinNumber(char vin[18]) { strcpy(_vinNumber, vin); }
+void PsaComfortCanAdapter::setHasAnalogicButtons(bool state) { _hasAnalogicButtons = state; }
+void PsaComfortCanAdapter::setMenuButton(byte menuButton) { _menuButton = menuButton; }
+void PsaComfortCanAdapter::setVolDownButton(byte volDownButton) { _volDownButton = volDownButton; }
+void PsaComfortCanAdapter::setVolUpButton(byte volUpButton) { _volUpButton = volUpButton; }
+void PsaComfortCanAdapter::setScrollValue(byte scrollValue) { _scrollValue = scrollValue; }

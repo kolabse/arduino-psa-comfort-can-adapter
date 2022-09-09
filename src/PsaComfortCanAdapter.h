@@ -15,17 +15,61 @@ class PsaComfortCanAdapter {
 
         PsaComfortCanAdapter(uint8_t csPinCan0, uint8_t csPinCan1);
 
-        MCP2515 getMCP(uint8_t mcp_cs_pin);
-        void resetEEPROM();
-        void adapterInit();
 
+        void adapterInit();
         void checkAnalogButtonsPressed();
         void transferCan2004Messages();
         void transferCan2010Messages();
-        void sendPOPup(bool present, int id, byte priority, byte parameters);
-        int daysSinceYearStartFct();
+
+        //Configuration methods
+
+        // Get some debug informations on Serial
+        void setDebugGeneral(bool state);
+        // Read data sent by ECUs from the car to Entertainment CAN bus using https://github.com/alexandreblin/python-can-monitor
+        void setDebugCAN0(bool state);
+        // Read data sent by the NAC / SMEG to Entertainment CAN bus using https://github.com/alexandreblin/python-can-monitor
+        void setDebugCAN1(bool state);
+        // You can disable economy mode on the Telematic if you want to - Not recommended at all
+        void setEconomyModeEnabled(bool state);
+        // Send forged CAN2010 messages to the CAR CAN-BUS Network (useful for testing CAN2010 device(s) from already existent connectors)
+        void setSend_CAN2010_ForgedMessages(bool state);
+        // Default Temperature in Celcius
+        void setTemperatureInF(bool state);
+        void setMpgMi(bool state);
+        // km/L statistics instead of L/100
+        void setKmL(bool state);
+        // Force Brightness value in case the calibration does not match your brightness value range
+        void setFixedBrightness(bool state);
+        // If you don't have any useful button on the main panel, turn the SRC button on steering wheel commands into MENU - only works for CAN2010 SMEG / NAC -
+        void setNoFMUX(bool state);
+        // noFMUX extra setting : 0 = Generic, 1 = C4 I / C5 X7 NAV+MUSIC+APPS+PHONE mapping, 2 = C4 I / C5 X7 MENU mapping, 3 = C4 I / C5 X7 MENU mapping + SRC on wiper command button, 4 = C4 I / C5 X7 MENU mapping + TRIP on wiper command button, 5 = C4 I / C5 X7 MENU mapping + SRC on wiper command button + TRIP on ESC button
+        void setSteeringWheelCommands_Type(byte type);
+        // Default is FR: 0 - EN: 1 / DE: 2 / ES: 3 / IT: 4 / PT: 5 / NL: 6 / BR: 9 / TR: 12 / RU: 14
+        void setLanguageID(byte languageID);
+        // Switch language on CAN2010 devices if changed on supported CAN2004 devices, default: no
+        void setListenCAN2004Language(bool state);
+        // Switch to true to reset all EEPROM values
+        void setResetEEPROM(bool state);
+        // Send suggested speed from Telematic to fake CVM (Multifunction camera inside the windshield) frame
+        void setCVM_Emul(bool state);
+        // Generate notifications from alerts journal - useful for C5 (X7)
+        void setGeneratePOPups(bool state);
+        // Replace network VIN by another (donor car for example)
+        void setEmulateVIN(bool state);
+        void setVinNumber(char vin[18]);
+        // Analog buttons instead of FMUX
+        void setHasAnalogicButtons(bool state);
+        void setMenuButton(byte menuButton);
+        void setVolDownButton(byte volDownButton);
+        void setVolUpButton(byte volUpButton);
+        void setScrollValue(byte scrollValue);
 
     private:
+
+        MCP2515 getMCP(uint8_t mcp_cs_pin);
+        void resetEEPROM();
+        void sendPOPup(bool present, int id, byte priority, byte parameters);
+        int daysSinceYearStartFct();
 
         struct can_frame _canMsgSnd;
         struct can_frame _canMsgRcv;
