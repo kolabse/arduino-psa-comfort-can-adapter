@@ -29,9 +29,7 @@ class PsaComfortCanAdapter {
         PsaComfortCanAdapter(uint8_t csPinCan0, uint8_t csPinCan1);
 
         void adapterInit();
-        void checkAnalogButtonsPressed();
-        void transferCan2004Messages();
-        void transferCan2010Messages();
+        void transfer();
 
         //Configuration methods
 
@@ -80,6 +78,9 @@ class PsaComfortCanAdapter {
 
         MCP2515 getMCP(uint8_t mcp_cs_pin);
         void resetEEPROM();
+        void checkAnalogButtonsPressed();
+        void transferCan2004Messages();
+        void transferCan2010Messages();
         void sendPOPup(bool present, int id, byte priority, byte parameters);
         int daysSinceYearStartFct();
 

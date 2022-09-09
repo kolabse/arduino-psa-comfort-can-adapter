@@ -47,7 +47,5 @@ void setup() {
 }
 
 void loop() {
-  canAdapter.checkAnalogButtonsPressed();
-  canAdapter.transferCan2004Messages();
-  canAdapter.transferCan2010Messages();
+  canAdapter.transfer();
 }

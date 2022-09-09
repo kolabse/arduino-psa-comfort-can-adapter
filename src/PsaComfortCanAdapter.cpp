@@ -178,6 +178,12 @@ void PsaComfortCanAdapter::adapterInit() {
   }
 }
 
+void PsaComfortCanAdapter::transfer() {
+    this->checkAnalogButtonsPressed();
+    this->transferCan2004Messages();
+    this->transferCan2010Messages();
+}
+
 void PsaComfortCanAdapter::checkAnalogButtonsPressed() {
     int tmpVal;
       if (_hasAnalogicButtons) {
