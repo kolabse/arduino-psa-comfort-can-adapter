@@ -9,12 +9,24 @@
 #include <DS1307RTC.h> // https://github.com/PaulStoffregen/DS1307RTC
 #include <mcp2515.h> // https://github.com/autowp/arduino-mcp2515 + https://github.com/watterott/Arduino-Libs/tree/master/digitalWriteFast
 
+enum LANG_IDS {
+        FR = 0,
+        EN = 1,
+        DE = 2,
+        ES = 3,
+        IT = 4,
+        PT = 5,
+        NL = 6,
+        BR = 9,
+        TR = 12,
+        RU = 14
+    };
+
 class PsaComfortCanAdapter {
 
     public:
 
         PsaComfortCanAdapter(uint8_t csPinCan0, uint8_t csPinCan1);
-
 
         void adapterInit();
         void checkAnalogButtonsPressed();
