@@ -17,20 +17,10 @@ The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 */
 
-/////////////////////
-//    Libraries    //
-/////////////////////
-
 #include <PsaComfortCanAdapter.h>
 
 const uint8_t csPinCan0 {10};
 const uint8_t csPinCan1 {9};
-
-
-
-////////////////////
-// Initialization //
-////////////////////
 
 PsaComfortCanAdapter canAdapter = PsaComfortCanAdapter(csPinCan0, csPinCan1);
 
@@ -41,11 +31,14 @@ void setup() {
   /////////////////////
 
   //canAdapter.setCanClock(MCP_8MHZ); // Uncomment if you have 8MHz can module
-
   canAdapter.setEmulateVIN(true);
   canAdapter.setVinNumber("VF7XXXXXXXXXXXXXX");
   canAdapter.setHasAnalogicButtons(true);
   canAdapter.setLanguageID(RU);
+
+  ////////////////////
+  // Initialization //
+  ////////////////////
 
   canAdapter.adapterInit();
 }
