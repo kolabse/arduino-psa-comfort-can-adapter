@@ -26,6 +26,8 @@ all copies or substantial portions of the Software.
 const uint8_t csPinCan0 {10};
 const uint8_t csPinCan1 {9};
 
+
+
 ////////////////////
 // Initialization //
 ////////////////////
@@ -37,6 +39,8 @@ void setup() {
   /////////////////////
   //  Configuration  //
   /////////////////////
+
+  //canAdapter.setCanClock(MCP_8MHZ); // Uncomment if you have 8MHz can module
 
   canAdapter.setEmulateVIN(true);
   canAdapter.setVinNumber("VF7XXXXXXXXXXXXXX");

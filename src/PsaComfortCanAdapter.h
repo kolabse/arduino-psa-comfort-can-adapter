@@ -32,7 +32,7 @@ all copies or substantial portions of the Software.
  * @brief variants of system language
  *
  */
-enum LANG_IDS {
+enum LANG_IDS : uint8_t {
         FR = 0,
         EN = 1,
         DE = 2,
@@ -226,6 +226,20 @@ class PsaComfortCanAdapter {
          */
         void setScrollValue(byte scrollValue);
 
+        /**
+         * @brief Set the Can Speed
+         *
+         * @param canSpeed values CAN_5KBPS, CAN_10KBPS, CAN_20KBPS, CAN_31K25BPS, CAN_33KBPS, CAN_40KBPS, CAN_50KBPS, CAN_80KBPS, CAN_83K3BPS, CAN_95KBPS, CAN_100KBPS, CAN_125KBPS, CAN_200KBPS, CAN_250KBPS, CAN_500KBPS, CAN_1000KBPS
+         */
+        void setCanSpeed(CAN_SPEED canSpeed);
+
+        /**
+         * @brief Set the Can Clock
+         *
+         * @param canClock values MCP_20MHZ, MCP_16MHZ, MCP_8MHZ
+         */
+        void setCanClock(CAN_CLOCK canClock);
+
     private:
 
         MCP2515 getMCP(uint8_t mcp_cs_pin);
@@ -242,8 +256,8 @@ class PsaComfortCanAdapter {
         MCP2515 _can1;
 
         const uint16_t _serialSpeed {115200};
-        const CAN_SPEED _canSpeed {CAN_125KBPS}; // Entertainment CAN bus - Low speed
-        const CAN_CLOCK _canFreq {MCP_16MHZ}; // Switch to 8MHZ if you have a 8Mhz module
+        CAN_SPEED _canSpeed {CAN_125KBPS}; // Entertainment CAN bus - Low speed
+        CAN_CLOCK _canFreq {MCP_16MHZ}; // Switch to 8MHZ if you have a 8Mhz module
 
         // My variables
         bool _debugGeneral = false; // Get some debug informations on Serial

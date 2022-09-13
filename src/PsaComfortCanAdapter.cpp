@@ -1905,3 +1905,5 @@ void PsaComfortCanAdapter::setMenuButton(byte menuButton) { _menuButton = menuBu
 void PsaComfortCanAdapter::setVolDownButton(byte volDownButton) { _volDownButton = volDownButton; }
 void PsaComfortCanAdapter::setVolUpButton(byte volUpButton) { _volUpButton = volUpButton; }
 void PsaComfortCanAdapter::setScrollValue(byte scrollValue) { _scrollValue = scrollValue; }
+void PsaComfortCanAdapter::setCanSpeed(CAN_SPEED canSpeed) { _canSpeed = canSpeed; }
+void PsaComfortCanAdapter::setCanClock(CAN_CLOCK canClock) { _canFreq = canClock; }
